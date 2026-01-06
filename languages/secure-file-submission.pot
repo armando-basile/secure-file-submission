@@ -38,6 +38,10 @@ msgstr ""
 msgid "Spazio Rimanente Archivio"
 msgstr ""
 
+#: includes/class-sfs-frontend.php:115
+msgid "Formato: con o senza spazi (es. 3331234567 o 333 123 4567)"
+msgstr ""
+
 #: includes/class-sfs-frontend.php:49
 msgid "Invia Documentazione"
 msgstr ""

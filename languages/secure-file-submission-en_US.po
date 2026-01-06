@@ -40,6 +40,10 @@ msgstr "Archive space exhausted. Please contact the administrator to free up spa
 msgid "Spazio Rimanente Archivio"
 msgstr "Remaining Archive Space"
 
+#: includes/class-sfs-frontend.php:115
+msgid "Formato: con o senza spazi (es. 3331234567 o 333 123 4567)"
+msgstr "Format: with or without spaces (e.g. 3331234567 or 333 123 4567)"
+
 #: includes/class-sfs-frontend.php:49
 msgid "Invia Documentazione"
 msgstr "Submit Documentation"

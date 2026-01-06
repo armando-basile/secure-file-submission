@@ -107,6 +107,9 @@ class SFS_AJAX {
             wp_send_json_error(array('message' => $upload_result['message']));
         }
         
+        // Normalize phone number (remove spaces and keep only digits and +)
+        $telefono = preg_replace('/[^0-9+]/', '', $_POST['telefono']);
+        
         // Prepare data for database
         $submission_data = array(
             'cognome' => $_POST['cognome'],
@@ -116,7 +119,7 @@ class SFS_AJAX {
             'codice_fiscale' => $_POST['codice_fiscale'],
             'comune_residenza' => $_POST['comune_residenza'],
             'indirizzo_residenza' => $_POST['indirizzo_residenza'],
-            'telefono' => $_POST['telefono'],
+            'telefono' => $telefono,
             'email' => $_POST['email'],
             'file_name' => $upload_result['file_name'],
             'file_path' => $upload_result['file_path'],

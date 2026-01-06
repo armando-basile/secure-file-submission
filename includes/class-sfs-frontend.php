@@ -112,7 +112,7 @@ class SFS_Frontend {
                         <div class="sfs-form-group sfs-half">
                             <label for="sfs_telefono"><?php esc_html_e('Telefono Cellulare', 'secure-file-submission'); ?> <span class="required">*</span></label>
                             <input type="tel" id="sfs_telefono" name="telefono" pattern="[0-9\s\+\-\(\)]{10,20}" required>
-                            <small class="sfs-help-text"><?php esc_html_e('Es: 333 1234567 o +39 333 1234567', 'secure-file-submission'); ?></small>
+                            <small class="sfs-help-text"><?php esc_html_e('Formato: con o senza spazi (es. 3331234567 o 333 123 4567)', 'secure-file-submission'); ?></small>
                         </div>
                         
                         <div class="sfs-form-group sfs-half">
