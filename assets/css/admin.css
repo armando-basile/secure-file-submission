@@ -1,0 +1,110 @@
+/* Secure File Submission - Admin Styles */
+
+.sfs-stats-boxes {
+    display: flex;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.sfs-stat-box {
+    flex: 1;
+    background: #fff;
+    border: 1px solid #ccd0d4;
+    border-radius: 4px;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.sfs-stat-box h3 {
+    margin: 0 0 0.5rem;
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.sfs-stat-box .sfs-stat-number {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0073aa;
+}
+
+.sfs-submission-details {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.sfs-details-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sfs-details-table th {
+    text-align: left;
+    padding: 0.5rem;
+    font-weight: 600;
+    width: 200px;
+    color: #333;
+}
+
+.sfs-details-table td {
+    padding: 0.5rem;
+    color: #666;
+}
+
+.sfs-details-table tr {
+    border-bottom: 1px solid #eee;
+}
+
+.sfs-details-table tr:last-child {
+    border-bottom: none;
+}
+
+.sfs-delete-btn {
+    color: #a00 !important;
+}
+
+.sfs-delete-btn:hover {
+    color: #dc3232 !important;
+}
+
+.button .dashicons {
+    line-height: 1.5;
+    vertical-align: middle;
+}
+
+.sfs-settings-wrapper {
+    max-width: 800px;
+}
+
+.sfs-settings-wrapper h2 {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #ddd;
+}
+
+.sfs-settings-wrapper h2:first-of-type {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+}
+
+.search-box {
+    float: right;
+    margin: 0 0 1rem;
+}
+
+.search-box input[type="search"] {
+    width: 250px;
+    margin-right: 0.5rem;
+}
+
+@media (max-width: 782px) {
+    .sfs-stats-boxes {
+        flex-direction: column;
+    }
+}

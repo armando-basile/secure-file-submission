@@ -1,0 +1,366 @@
+# English (United States) translation for Secure File Submission
+# Copyright (C) 2026 Secure File Submission
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Secure File Submission 1.0.0\n"
+"Report-Msgid-Bugs-To: https://github.com/armando-basile/secure-file-submission\n"
+"POT-Creation-Date: 2026-01-06 12:00+0000\n"
+"PO-Revision-Date: 2026-01-06 12:00+0000\n"
+"Last-Translator: Armando Basile\n"
+"Language-Team: English\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Manual\n"
+
+#: secure-file-submission.php:59
+msgid "File Submission Manager"
+msgstr "File Submission Manager"
+
+#: includes/class-sfs-frontend.php:49
+msgid "Invia Documentazione"
+msgstr "Submit Documentation"
+
+#: includes/class-sfs-frontend.php:67
+msgid "Cognome"
+msgstr "Last Name"
+
+#: includes/class-sfs-frontend.php:72
+msgid "Nome"
+msgstr "First Name"
+
+#: includes/class-sfs-frontend.php:79
+msgid "Data di Nascita"
+msgstr "Date of Birth"
+
+#: includes/class-sfs-frontend.php:84
+msgid "Comune di Nascita"
+msgstr "Place of Birth"
+
+#: includes/class-sfs-frontend.php:90
+msgid "Codice Fiscale"
+msgstr "Tax Code"
+
+#: includes/class-sfs-frontend.php:92
+msgid "Inserire 16 caratteri senza spazi"
+msgstr "Enter 16 characters without spaces"
+
+#: includes/class-sfs-frontend.php:96
+msgid "Comune di Residenza"
+msgstr "City of Residence"
+
+#: includes/class-sfs-frontend.php:101
+msgid "Indirizzo di Residenza"
+msgstr "Residential Address"
+
+#: includes/class-sfs-frontend.php:103
+msgid "Via, numero civico"
+msgstr "Street, house number"
+
+#: includes/class-sfs-frontend.php:108
+msgid "Telefono Cellulare"
+msgstr "Mobile Phone"
+
+#: includes/class-sfs-frontend.php:110
+msgid "Es: 333 1234567 o +39 333 1234567"
+msgstr "e.g.: 333 1234567 or +39 333 1234567"
+
+#: includes/class-sfs-frontend.php:114
+msgid "Email"
+msgstr "Email"
+
+#: includes/class-sfs-frontend.php:120
+msgid "File ZIP"
+msgstr "ZIP File"
+
+#: includes/class-sfs-frontend.php:122
+msgid "File ZIP, dimensione massima: %s MB"
+msgstr "ZIP file, maximum size: %s MB"
+
+#: includes/class-sfs-frontend.php:133
+msgid "Invio in corso..."
+msgstr "Sending..."
+
+#: includes/class-sfs-frontend.php:140
+msgid "Campi obbligatori"
+msgstr "Required fields"
+
+#: includes/class-sfs-frontend.php:39
+msgid "Il file supera la dimensione massima di %s MB."
+msgstr "The file exceeds the maximum size of %s MB."
+
+#: includes/class-sfs-frontend.php:40
+msgid "Sono ammessi solo file ZIP."
+msgstr "Only ZIP files are allowed."
+
+#: includes/class-sfs-frontend.php:41
+msgid "Errore durante l'invio. Riprova più tardi."
+msgstr "Error sending. Please try again later."
+
+#: includes/class-sfs-admin.php:37-38
+msgid "File Submissions"
+msgstr "File Submissions"
+
+#: includes/class-sfs-admin.php:48-49
+msgid "Impostazioni"
+msgstr "Settings"
+
+#: includes/class-sfs-admin.php:78
+msgid "Sei sicuro di voler eliminare questa submission? Questa azione è irreversibile."
+msgstr "Are you sure you want to delete this submission? This action is irreversible."
+
+#: includes/class-sfs-admin.php:89
+#: includes/class-sfs-admin.php:114
+msgid "Non hai i permessi per accedere a questa pagina."
+msgstr "You do not have permission to access this page."
+
+#: includes/class-sfs-admin.php:134
+msgid "Non hai i permessi per eseguire questa azione."
+msgstr "You do not have permission to perform this action."
+
+#: includes/class-sfs-admin.php:139
+msgid "Verifica di sicurezza fallita."
+msgstr "Security check failed."
+
+#: includes/class-sfs-ajax.php:27
+msgid "Verifica di sicurezza fallita. Ricarica la pagina e riprova."
+msgstr "Security check failed. Reload the page and try again."
+
+#: includes/class-sfs-ajax.php:34
+msgid "Verifica reCAPTCHA mancante."
+msgstr "Missing reCAPTCHA verification."
+
+#: includes/class-sfs-ajax.php:40
+msgid "Verifica reCAPTCHA fallita. Sei un robot?"
+msgstr "reCAPTCHA verification failed. Are you a robot?"
+
+#: includes/class-sfs-ajax.php:45
+msgid "Score reCAPTCHA troppo basso. Contatta l'amministratore se il problema persiste."
+msgstr "reCAPTCHA score too low. Contact the administrator if the problem persists."
+
+#: includes/class-sfs-ajax.php:64
+msgid "Il campo '%s' è obbligatorio."
+msgstr "The field '%s' is required."
+
+#: includes/class-sfs-ajax.php:77
+msgid "Questo Codice Fiscale è già stato utilizzato per una submission precedente."
+msgstr "This Tax Code has already been used for a previous submission."
+
+#: includes/class-sfs-ajax.php:88
+msgid "Gli indirizzi email temporanei non sono consentiti."
+msgstr "Temporary email addresses are not allowed."
+
+#: includes/class-sfs-ajax.php:93
+msgid "Il file ZIP è obbligatorio."
+msgstr "The ZIP file is required."
+
+#: includes/class-sfs-ajax.php:128
+msgid "Errore durante il salvataggio dei dati. Riprova più tardi."
+msgstr "Error saving data. Please try again later."
+
+#: includes/class-sfs-ajax.php:136
+msgid "Documentazione inviata con successo! Riceverai una email di conferma a breve."
+msgstr "Documentation submitted successfully! You will receive a confirmation email shortly."
+
+#: includes/class-sfs-ajax.php:166
+msgid "Nuova Submission File Ricevuta"
+msgstr "New File Submission Received"
+
+#: includes/class-sfs-ajax.php:171
+msgid "È stata ricevuta una nuova submission di documentazione."
+msgstr "A new documentation submission has been received."
+
+#: includes/class-sfs-ajax.php:172
+msgid "DATI ANAGRAFICI:"
+msgstr "PERSONAL DATA:"
+
+#: includes/class-sfs-ajax.php:174
+msgid "Cognome e Nome:"
+msgstr "Last Name and First Name:"
+
+#: includes/class-sfs-ajax.php:175
+msgid "Data di Nascita:"
+msgstr "Date of Birth:"
+
+#: includes/class-sfs-ajax.php:176
+msgid "Comune di Nascita:"
+msgstr "Place of Birth:"
+
+#: includes/class-sfs-ajax.php:177
+msgid "Codice Fiscale:"
+msgstr "Tax Code:"
+
+#: includes/class-sfs-ajax.php:178
+msgid "Comune di Residenza:"
+msgstr "City of Residence:"
+
+#: includes/class-sfs-ajax.php:179
+msgid "Indirizzo di Residenza:"
+msgstr "Residential Address:"
+
+#: includes/class-sfs-ajax.php:180
+msgid "Telefono:"
+msgstr "Phone:"
+
+#: includes/class-sfs-ajax.php:181
+msgid "Email:"
+msgstr "Email:"
+
+#: includes/class-sfs-ajax.php:183
+msgid "FILE:"
+msgstr "FILE:"
+
+#: includes/class-sfs-ajax.php:185
+msgid "Nome File:"
+msgstr "File Name:"
+
+#: includes/class-sfs-ajax.php:186
+msgid "Dimensione:"
+msgstr "Size:"
+
+#: includes/class-sfs-ajax.php:188
+msgid "DOWNLOAD:"
+msgstr "DOWNLOAD:"
+
+#: includes/class-sfs-ajax.php:190
+msgid "Per scaricare il file, effettua il login su WordPress e clicca sul link seguente:"
+msgstr "To download the file, log in to WordPress and click the following link:"
+
+#: includes/class-sfs-ajax.php:193
+msgid "Oppure accedi alla sezione 'File Submissions' nel pannello amministrativo."
+msgstr "Or access the 'File Submissions' section in the admin panel."
+
+#: includes/class-sfs-ajax.php:195
+msgid "INFO TECNICHE:"
+msgstr "TECHNICAL INFO:"
+
+#: includes/class-sfs-ajax.php:197
+msgid "IP Address:"
+msgstr "IP Address:"
+
+#: includes/class-sfs-ajax.php:198
+msgid "Data Invio:"
+msgstr "Submission Date:"
+
+#: includes/class-sfs-ajax.php:199
+msgid "Submission ID:"
+msgstr "Submission ID:"
+
+#: includes/class-sfs-ajax.php:208
+msgid "Conferma Ricezione Richiesta"
+msgstr "Request Receipt Confirmation"
+
+#: includes/class-sfs-ajax.php:210
+msgid "Gentile %s %s,"
+msgstr "Dear %s %s,"
+
+#: includes/class-sfs-ajax.php:211
+msgid "La tua documentazione è stata ricevuta con successo."
+msgstr "Your documentation has been successfully received."
+
+#: includes/class-sfs-ajax.php:212
+msgid "Riepilogo:"
+msgstr "Summary:"
+
+#: includes/class-sfs-ajax.php:214
+msgid "File:"
+msgstr "File:"
+
+#: includes/class-sfs-ajax.php:215
+msgid "Data invio:"
+msgstr "Submission date:"
+
+#: includes/class-sfs-ajax.php:216
+msgid "Ti contatteremo al più presto per le successive comunicazioni."
+msgstr "We will contact you as soon as possible for further communications."
+
+#: includes/class-sfs-ajax.php:217
+msgid "Per qualsiasi informazione, rispondi a questa email."
+msgstr "For any information, reply to this email."
+
+#: includes/class-sfs-ajax.php:218
+msgid "Cordiali saluti"
+msgstr "Best regards"
+
+#: includes/class-sfs-ajax.php:248
+msgid "ID submission mancante."
+msgstr "Missing submission ID."
+
+#: admin/submissions-list.php:2
+msgid "Submissions Ricevute"
+msgstr "Received Submissions"
+
+#: admin/submissions-list.php:6
+msgid "Submission eliminata con successo."
+msgstr "Submission deleted successfully."
+
+#: admin/submissions-list.php:13
+msgid "Cerca per nome, CF, email..."
+msgstr "Search by name, tax code, email..."
+
+#: admin/submissions-list.php:14
+msgid "Cerca"
+msgstr "Search"
+
+#: admin/submissions-list.php:16
+msgid "Rimuovi filtro"
+msgstr "Remove filter"
+
+#: admin/submissions-list.php:23
+msgid "Totale Submissions"
+msgstr "Total Submissions"
+
+#: admin/submissions-list.php:27
+msgid "Spazio Utilizzato"
+msgstr "Used Space"
+
+#: admin/submissions-list.php:31
+msgid "Spazio Libero"
+msgstr "Free Space"
+
+#: admin/submissions-list.php:37
+msgid "Nessuna submission trovata."
+msgstr "No submissions found."
+
+#: admin/submissions-list.php:43
+msgid "Nome Cognome"
+msgstr "First Name Last Name"
+
+#: admin/submissions-list.php:46
+msgid "Telefono"
+msgstr "Phone"
+
+#: admin/submissions-list.php:47
+msgid "File"
+msgstr "File"
+
+#: admin/submissions-list.php:48
+msgid "Data Invio"
+msgstr "Submission Date"
+
+#: admin/submissions-list.php:49
+msgid "Azioni"
+msgstr "Actions"
+
+#: admin/submissions-list.php:59
+msgid "Visualizza dettagli"
+msgstr "View details"
+
+#: admin/submissions-list.php:110
+msgid "Download"
+msgstr "Download"
+
+#: admin/submissions-list.php:113
+msgid "Elimina"
+msgstr "Delete"
+
+#: admin/settings.php:2
+msgid "Impostazioni Secure File Submission"
+msgstr "Secure File Submission Settings"
+
+#: admin/settings.php:10
+msgid "Impostazioni File Upload"
+msgstr "File Upload Settings"
