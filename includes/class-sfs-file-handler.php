@@ -260,22 +260,37 @@ class SFS_File_Handler {
             wp_die('Il file non esiste più sul server.', 'Errore 404', array('response' => 404));
         }
         
-        // Clean output buffer to prevent "0" being printed
-        if (ob_get_level()) {
+        // Clean ALL output buffers to prevent any output before headers
+        while (ob_get_level()) {
             ob_end_clean();
+        }
+        
+        // Clear any previous output
+        if (headers_sent()) {
+            die('Headers already sent. Cannot download file.');
         }
         
         // Serve file
         header('Content-Type: application/zip');
         header('Content-Disposition: attachment; filename="' . basename($file_path) . '"');
         header('Content-Length: ' . filesize($file_path));
+        header('Content-Transfer-Encoding: binary');
         header('Cache-Control: no-cache, must-revalidate');
         header('Pragma: no-cache');
+        header('Expires: 0');
         
-        // Flush output buffer
-        flush();
+        // Read and output file in chunks for large files
+        $handle = fopen($file_path, 'rb');
+        if ($handle === false) {
+            die('Cannot open file.');
+        }
         
-        readfile($file_path);
+        while (!feof($handle)) {
+            echo fread($handle, 8192);
+            flush();
+        }
+        
+        fclose($handle);
         exit;
     }
     

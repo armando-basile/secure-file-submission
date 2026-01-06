@@ -83,7 +83,8 @@ class SFS_Admin {
      * Enqueue admin scripts and styles
      */
     public function enqueue_admin_scripts($hook) {
-        if (strpos($hook, 'sfs-') !== false) {
+        // Load on our plugin pages (file-submissions and sfs-settings)
+        if (strpos($hook, 'file-submissions') !== false || strpos($hook, 'sfs-settings') !== false) {
             wp_enqueue_style('sfs-admin', SFS_PLUGIN_URL . 'assets/css/admin.css', array(), SFS_VERSION);
             wp_enqueue_script('sfs-admin', SFS_PLUGIN_URL . 'assets/js/admin.js', array('jquery'), SFS_VERSION, true);
             

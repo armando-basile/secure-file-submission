@@ -32,28 +32,36 @@
 
 .sfs-submission-details {
     margin-top: 1rem;
-    padding: 1rem;
+    padding: 1.5rem;
     background: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 4px;
+    width: 700px;
+    position: relative;
+    left: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .sfs-details-table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
 .sfs-details-table th {
     text-align: left;
-    padding: 0.5rem;
+    padding: 0.75rem;
     font-weight: 600;
-    width: 200px;
+    width: 35%;
     color: #333;
+    vertical-align: top;
 }
 
 .sfs-details-table td {
-    padding: 0.5rem;
+    padding: 0.75rem;
     color: #666;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .sfs-details-table tr {
