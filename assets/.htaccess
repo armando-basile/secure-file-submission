@@ -1,0 +1,10 @@
+# Allow access to asset files
+<FilesMatch "\.(css|js|png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$">
+    Require all granted
+</FilesMatch>
+
+# Set correct MIME types
+<IfModule mod_mime.c>
+    AddType application/javascript .js
+    AddType text/css .css
+</IfModule>

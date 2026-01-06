@@ -123,11 +123,22 @@
                     } else {
                         showMessage('error', response.data.message);
                         progressDiv.hide();
+                        
+                        // Scroll to error message
+                        $('html, body').animate({
+                            scrollTop: messagesDiv.offset().top - 100
+                        }, 500);
                     }
                 },
                 error: function(xhr, status, error) {
                     showMessage('error', sfsData.messages.errorSending);
                     progressDiv.hide();
+                    
+                    // Scroll to error message
+                    $('html, body').animate({
+                        scrollTop: messagesDiv.offset().top - 100
+                    }, 500);
+                    
                     console.error('AJAX Error:', error);
                 },
                 complete: function() {

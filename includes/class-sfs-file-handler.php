@@ -76,7 +76,14 @@ class SFS_File_Handler {
         $message .= "Azione richiesta: Eliminare vecchi file dalla sezione 'Invii File' per liberare spazio.\n\n";
         $message .= "Percorso: {$this->upload_dir}";
         
-        wp_mail($admin_email, $subject, $message);
+        // Set Reply-To header if configured
+        $reply_to = get_option('sfs_reply_to_email');
+        $headers = array();
+        if (!empty($reply_to)) {
+            $headers[] = 'Reply-To: ' . $reply_to;
+        }
+        
+        wp_mail($admin_email, $subject, $message, $headers);
     }
     
     /**

@@ -74,6 +74,7 @@ class SFS_Admin {
         register_setting('sfs_settings', 'sfs_recaptcha_site_key');
         register_setting('sfs_settings', 'sfs_recaptcha_secret_key');
         register_setting('sfs_settings', 'sfs_admin_email');
+        register_setting('sfs_settings', 'sfs_reply_to_email');
         register_setting('sfs_settings', 'sfs_email_subject_admin');
         register_setting('sfs_settings', 'sfs_email_subject_user');
     }

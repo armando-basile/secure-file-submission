@@ -79,6 +79,18 @@
                 
                 <tr>
                     <th scope="row">
+                        <label for="sfs_reply_to_email">Email Reply-To</label>
+                    </th>
+                    <td>
+                        <input type="email" name="sfs_reply_to_email" id="sfs_reply_to_email" 
+                               value="<?php echo esc_attr(get_option('sfs_reply_to_email', get_option('admin_email'))); ?>" 
+                               class="regular-text">
+                        <p class="description">Email a cui verranno indirizzate le risposte. Se vuoto, usa l'email amministratore.</p>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <th scope="row">
                         <label for="sfs_email_subject_admin">Oggetto Email Admin</label>
                     </th>
                     <td>
