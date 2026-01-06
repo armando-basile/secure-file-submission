@@ -20,6 +20,26 @@ msgstr ""
 msgid "File Submission Manager"
 msgstr "Gestore Invii File"
 
+#: includes/class-sfs-admin.php:38-39
+msgid "File Submissions"
+msgstr "Invii File"
+
+#: includes/class-sfs-admin.php:50-51
+msgid "Submissions"
+msgstr "Invii"
+
+#: includes/class-sfs-admin.php:60-61
+msgid "Settings"
+msgstr "Impostazioni"
+
+#: includes/class-sfs-file-handler.php:46
+msgid "Spazio archivio esaurito. Contattare l'amministratore per liberare spazio."
+msgstr "Spazio archivio esaurito. Contattare l'amministratore per liberare spazio."
+
+#: admin/submissions-list.php:31
+msgid "Spazio Rimanente Archivio"
+msgstr "Spazio Rimanente Archivio"
+
 #: includes/class-sfs-frontend.php:49
 msgid "Invia Documentazione"
 msgstr "Invia Documentazione"
@@ -88,6 +108,15 @@ msgstr "Invio in corso..."
 msgid "Campi obbligatori"
 msgstr "Campi obbligatori"
 
+#: includes/class-sfs-frontend.php:136
+msgid "Accetto i termini e condizioni"
+msgstr "Accetto i termini e condizioni"
+
+#: includes/class-sfs-frontend.php:138
+#: includes/class-sfs-ajax.php:72
+msgid "Devi accettare i termini e condizioni per continuare."
+msgstr "Devi accettare i termini e condizioni per continuare."
+
 #: includes/class-sfs-frontend.php:39
 msgid "Il file supera la dimensione massima di %s MB."
 msgstr "Il file supera la dimensione massima di %s MB."
@@ -99,14 +128,6 @@ msgstr "Sono ammessi solo file ZIP."
 #: includes/class-sfs-frontend.php:41
 msgid "Errore durante l'invio. Riprova più tardi."
 msgstr "Errore durante l'invio. Riprova più tardi."
-
-#: includes/class-sfs-admin.php:37-38
-msgid "File Submissions"
-msgstr "Invii File"
-
-#: includes/class-sfs-admin.php:48-49
-msgid "Impostazioni"
-msgstr "Impostazioni"
 
 #: includes/class-sfs-admin.php:78
 msgid "Sei sicuro di voler eliminare questa submission? Questa azione è irreversibile."

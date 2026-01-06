@@ -18,6 +18,26 @@ msgstr ""
 msgid "File Submission Manager"
 msgstr ""
 
+#: includes/class-sfs-admin.php:38-39
+msgid "File Submissions"
+msgstr ""
+
+#: includes/class-sfs-admin.php:50-51
+msgid "Submissions"
+msgstr ""
+
+#: includes/class-sfs-admin.php:60-61
+msgid "Settings"
+msgstr ""
+
+#: includes/class-sfs-file-handler.php:46
+msgid "Spazio archivio esaurito. Contattare l'amministratore per liberare spazio."
+msgstr ""
+
+#: admin/submissions-list.php:31
+msgid "Spazio Rimanente Archivio"
+msgstr ""
+
 #: includes/class-sfs-frontend.php:49
 msgid "Invia Documentazione"
 msgstr ""
@@ -86,6 +106,15 @@ msgstr ""
 msgid "Campi obbligatori"
 msgstr ""
 
+#: includes/class-sfs-frontend.php:136
+msgid "Accetto i termini e condizioni"
+msgstr ""
+
+#: includes/class-sfs-frontend.php:138
+#: includes/class-sfs-ajax.php:72
+msgid "Devi accettare i termini e condizioni per continuare."
+msgstr ""
+
 #: includes/class-sfs-frontend.php:39
 msgid "Il file supera la dimensione massima di %s MB."
 msgstr ""
@@ -103,7 +132,7 @@ msgid "File Submissions"
 msgstr ""
 
 #: includes/class-sfs-admin.php:48-49
-msgid "Impostazioni"
+msgid "Settings"
 msgstr ""
 
 #: includes/class-sfs-admin.php:78

@@ -133,6 +133,14 @@ class SFS_Frontend {
                         </div>
                     </div>
                     
+                    <div class="sfs-form-group sfs-terms-group">
+                        <label class="sfs-checkbox-label">
+                            <input type="checkbox" id="sfs_terms" name="terms" required>
+                            <span><?php esc_html_e('Accetto i termini e condizioni', 'secure-file-submission'); ?> <span class="required">*</span></span>
+                        </label>
+                        <small class="sfs-help-text sfs-terms-error" style="display:none; color: #dc3232;"><?php esc_html_e('Devi accettare i termini e condizioni per continuare.', 'secure-file-submission'); ?></small>
+                    </div>
+                    
                     <div class="sfs-form-group">
                         <button type="submit" id="sfs-submit-btn" class="sfs-submit-button">
                             <span class="sfs-btn-text"><?php esc_html_e('Invia Documentazione', 'secure-file-submission'); ?></span>

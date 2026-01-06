@@ -13,10 +13,19 @@
         var progressDiv = $('#sfs-upload-progress');
         var progressBar = $('.sfs-progress-fill');
         var progressText = $('.sfs-progress-text');
+        var termsCheckbox = $('#sfs_terms');
+        var termsError = $('.sfs-terms-error');
         
         // Uppercase codice fiscale as user types
         $('#sfs_codice_fiscale').on('input', function() {
             this.value = this.value.toUpperCase();
+        });
+        
+        // Hide terms error when checkbox is checked
+        termsCheckbox.on('change', function() {
+            if (this.checked) {
+                termsError.hide();
+            }
         });
         
         // File size validation on selection
@@ -47,6 +56,16 @@
             
             // Clear previous messages
             messagesDiv.empty();
+            termsError.hide();
+            
+            // Validate terms and conditions checkbox
+            if (!termsCheckbox.prop('checked')) {
+                termsError.show();
+                $('html, body').animate({
+                    scrollTop: termsCheckbox.offset().top - 100
+                }, 500);
+                return false;
+            }
             
             // Disable submit button
             submitBtn.prop('disabled', true).addClass('loading');

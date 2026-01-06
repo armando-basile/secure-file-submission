@@ -66,6 +66,11 @@ class SFS_AJAX {
             }
         }
         
+        // Validate terms and conditions acceptance
+        if (empty($_POST['terms']) || $_POST['terms'] !== 'on') {
+            wp_send_json_error(array('message' => __('Devi accettare i termini e condizioni per continuare.', 'secure-file-submission')));
+        }
+        
         // Validate Codice Fiscale
         $cf_validation = SFS_Codice_Fiscale::validate_detailed($_POST['codice_fiscale']);
         if (!$cf_validation['valid']) {

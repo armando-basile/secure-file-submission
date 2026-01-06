@@ -17,62 +17,63 @@ class SFS_File_Handler {
     }
     
     /**
-     * Check if there's enough disk space
+     * Check if total archive size would exceed limit
      * 
-     * @param int $required_bytes Required space in bytes
+     * @param int $new_file_size Size of file to be uploaded in bytes
      * @return array Array with 'success' boolean and 'message' string
      */
-    public function check_disk_space($required_bytes) {
-        $min_free_space_mb = get_option('sfs_min_free_space', 2048);
-        $min_free_space_bytes = $min_free_space_mb * 1024 * 1024;
+    public function check_archive_size($new_file_size) {
+        $max_archive_size_mb = get_option('sfs_max_archive_size', 2048); // 2GB default
+        $max_archive_size_bytes = $max_archive_size_mb * 1024 * 1024;
         
-        $free_space = disk_free_space($this->upload_dir);
+        // Get current total size
+        $current_total_size = $this->get_total_uploads_size();
         
-        if ($free_space === false) {
-            return array(
-                'success' => false,
-                'message' => 'Impossibile verificare lo spazio disco disponibile.'
-            );
-        }
+        // Calculate what would be the new total
+        $new_total_size = $current_total_size + $new_file_size;
         
-        $free_space_mb = round($free_space / 1024 / 1024, 2);
-        $required_mb = round($required_bytes / 1024 / 1024, 2);
+        $current_size_mb = round($current_total_size / 1024 / 1024, 2);
+        $new_file_mb = round($new_file_size / 1024 / 1024, 2);
+        $new_total_mb = round($new_total_size / 1024 / 1024, 2);
         
-        // Check if we have enough space for the file PLUS the minimum free space
-        if ($free_space < ($required_bytes + $min_free_space_bytes)) {
+        // Check if we would exceed the limit
+        if ($new_total_size > $max_archive_size_bytes) {
             // Send alert email to admin
-            $this->send_disk_space_alert($free_space_mb, $required_mb, $min_free_space_mb);
+            $this->send_archive_size_alert($current_size_mb, $new_file_mb, $max_archive_size_mb);
             
             return array(
                 'success' => false,
-                'message' => 'Spazio disco insufficiente sul server. Contattare l\'amministratore.',
-                'free_space_mb' => $free_space_mb,
-                'required_mb' => $required_mb
+                'message' => __('Spazio archivio esaurito. Contattare l\'amministratore per liberare spazio.', 'secure-file-submission'),
+                'current_size_mb' => $current_size_mb,
+                'new_file_mb' => $new_file_mb,
+                'max_size_mb' => $max_archive_size_mb
             );
         }
         
         return array(
             'success' => true,
-            'message' => 'Spazio disco sufficiente.',
-            'free_space_mb' => $free_space_mb,
-            'required_mb' => $required_mb
+            'message' => 'Spazio archivio sufficiente.',
+            'current_size_mb' => $current_size_mb,
+            'new_file_mb' => $new_file_mb,
+            'new_total_mb' => $new_total_mb,
+            'max_size_mb' => $max_archive_size_mb
         );
     }
     
     /**
-     * Send alert email to admin about low disk space
+     * Send alert email to admin about archive size limit
      */
-    private function send_disk_space_alert($free_mb, $required_mb, $min_mb) {
+    private function send_archive_size_alert($current_mb, $new_file_mb, $max_mb) {
         $admin_email = get_option('sfs_admin_email', get_option('admin_email'));
         
-        $subject = '[ALERT] Spazio Disco Insufficiente - Secure File Submission';
+        $subject = '[ALERT] Limite Archivio Raggiunto - Secure File Submission';
         
-        $message = "ATTENZIONE: Spazio disco insufficiente sul server.\n\n";
-        $message .= "Spazio libero attuale: {$free_mb} MB\n";
-        $message .= "Spazio richiesto per upload: {$required_mb} MB\n";
-        $message .= "Spazio minimo configurato: {$min_mb} MB\n\n";
-        $message .= "Un utente ha tentato di caricare un file ma l'operazione è stata bloccata per mancanza di spazio.\n\n";
-        $message .= "Azione richiesta: Liberare spazio sul server o eliminare vecchi file dalla directory secure-submissions.\n\n";
+        $message = "ATTENZIONE: Il limite di dimensione dell'archivio è stato raggiunto.\n\n";
+        $message .= "Dimensione attuale archivio: {$current_mb} MB\n";
+        $message .= "Dimensione file tentato: {$new_file_mb} MB\n";
+        $message .= "Limite massimo configurato: {$max_mb} MB\n\n";
+        $message .= "Un utente ha tentato di caricare un file ma l'operazione è stata bloccata perché l'archivio è pieno.\n\n";
+        $message .= "Azione richiesta: Eliminare vecchi file dalla sezione 'Invii File' per liberare spazio.\n\n";
         $message .= "Percorso: {$this->upload_dir}";
         
         wp_mail($admin_email, $subject, $message);
@@ -142,8 +143,8 @@ class SFS_File_Handler {
             );
         }
         
-        // Check disk space
-        $space_check = $this->check_disk_space($file['size']);
+        // Check archive size limit
+        $space_check = $this->check_archive_size($file['size']);
         if (!$space_check['success']) {
             return $space_check;
         }
@@ -216,7 +217,7 @@ class SFS_File_Handler {
     public function get_download_url($submission_id) {
         return add_query_arg(
             array(
-                'sfs_action' => 'download',
+                'action' => 'sfs_download',
                 'id' => $submission_id,
                 'nonce' => wp_create_nonce('sfs_download_' . $submission_id)
             ),
@@ -252,12 +253,20 @@ class SFS_File_Handler {
             wp_die('Il file non esiste più sul server.', 'Errore 404', array('response' => 404));
         }
         
+        // Clean output buffer to prevent "0" being printed
+        if (ob_get_level()) {
+            ob_end_clean();
+        }
+        
         // Serve file
         header('Content-Type: application/zip');
         header('Content-Disposition: attachment; filename="' . basename($file_path) . '"');
         header('Content-Length: ' . filesize($file_path));
         header('Cache-Control: no-cache, must-revalidate');
         header('Pragma: no-cache');
+        
+        // Flush output buffer
+        flush();
         
         readfile($file_path);
         exit;

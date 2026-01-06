@@ -24,14 +24,14 @@
                 
                 <tr>
                     <th scope="row">
-                        <label for="sfs_min_free_space">Spazio Minimo Libero (MB)</label>
+                        <label for="sfs_min_free_space">Dimensione Massima Archivio (MB)</label>
                     </th>
                     <td>
-                        <input type="number" name="sfs_min_free_space" id="sfs_min_free_space" 
-                               value="<?php echo esc_attr(get_option('sfs_min_free_space', 2048)); ?>" 
+                        <input type="number" name="sfs_max_archive_size" id="sfs_max_archive_size" 
+                               value="<?php echo esc_attr(get_option('sfs_max_archive_size', 2048)); ?>" 
                                class="regular-text" min="100" max="10000" required>
-                        <p class="description">Spazio minimo che deve rimanere libero sul server dopo l'upload (in MB). Default: 2048 MB (2 GB)</p>
-                        <p class="description">Se lo spazio disponibile scende sotto questa soglia, l'upload viene bloccato e l'admin riceve una email di allerta.</p>
+                        <p class="description">Dimensione massima totale di tutti i file caricati (in MB). Default: 2048 MB (2 GB)</p>
+                        <p class="description">Quando raggiunto questo limite, l'upload viene bloccato e l'admin riceve una email di allerta. Eliminare vecchi file per liberare spazio.</p>
                     </td>
                 </tr>
             </table>

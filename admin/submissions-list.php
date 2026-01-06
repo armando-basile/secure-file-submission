@@ -8,12 +8,12 @@
     <?php endif; ?>
     
     <form method="get" action="">
-        <input type="hidden" name="page" value="sfs-submissions">
+        <input type="hidden" name="page" value="file-submissions">
         <p class="search-box">
             <input type="search" name="s" value="<?php echo esc_attr($search); ?>" placeholder="<?php esc_attr_e('Cerca per nome, CF, email...', 'secure-file-submission'); ?>">
             <input type="submit" class="button" value="<?php esc_attr_e('Cerca', 'secure-file-submission'); ?>">
             <?php if ($search): ?>
-                <a href="<?php echo admin_url('admin.php?page=sfs-submissions'); ?>" class="button"><?php esc_html_e('Rimuovi filtro', 'secure-file-submission'); ?></a>
+                <a href="<?php echo admin_url('admin.php?page=file-submissions'); ?>" class="button"><?php esc_html_e('Rimuovi filtro', 'secure-file-submission'); ?></a>
             <?php endif; ?>
         </p>
     </form>
@@ -28,7 +28,7 @@
             <p class="sfs-stat-number"><?php echo size_format($total_size); ?></p>
         </div>
         <div class="sfs-stat-box">
-            <h3><?php esc_html_e('Spazio Libero', 'secure-file-submission'); ?></h3>
+            <h3><?php esc_html_e('Spazio Rimanente Archivio', 'secure-file-submission'); ?></h3>
             <p class="sfs-stat-number"><?php echo size_format($free_space); ?></p>
         </div>
     </div>

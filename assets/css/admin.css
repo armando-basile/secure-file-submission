@@ -75,10 +75,156 @@
 .button .dashicons {
     line-height: 1.5;
     vertical-align: middle;
+    margin-right: 4px;
 }
 
+/* Allineamento pulsanti con icone */
+.button-small .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    line-height: 1;
+    vertical-align: text-bottom;
+    margin-right: 3px;
+}
+
+/* Fix per Dark Mode - Sfondo uniforme */
 .sfs-settings-wrapper {
     max-width: 800px;
+}
+
+/* Forza sfondo grigio uniforme per l'intera pagina impostazioni - Dark Mode */
+/* Supporta tutte le possibili varianti di classi CSS generate da WordPress */
+html.wp-dark-mode-active body.file-submissions_page_sfs-settings,
+html.wp-dark-mode-active body[class*="_page_sfs-settings"],
+html[class*="dark"] body.file-submissions_page_sfs-settings,
+html[class*="dark"] body[class*="_page_sfs-settings"],
+body.file-submissions_page_sfs-settings,
+body[class*="_page_sfs-settings"],
+body.file-submissions_page_sfs-settings #wpwrap,
+body[class*="_page_sfs-settings"] #wpwrap,
+body.file-submissions_page_sfs-settings #wpcontent,
+body[class*="_page_sfs-settings"] #wpcontent,
+body.file-submissions_page_sfs-settings #wpbody,
+body[class*="_page_sfs-settings"] #wpbody,
+body.file-submissions_page_sfs-settings #wpbody-content,
+body[class*="_page_sfs-settings"] #wpbody-content {
+    background: #2c3338 !important;
+    min-height: 100vh !important;
+}
+
+/* Forza anche l'html */
+html.file-submissions_page_sfs-settings,
+html[class*="_page_sfs-settings"],
+html body.file-submissions_page_sfs-settings,
+html body[class*="_page_sfs-settings"] {
+    background: #2c3338 !important;
+}
+
+/* Modalità chiara */
+html:not(.wp-dark-mode-active):not([class*="dark"]) body:not(.wp-dark-mode-active):not([class*="dark"]).file-submissions_page_sfs-settings,
+html:not(.wp-dark-mode-active):not([class*="dark"]) body:not(.wp-dark-mode-active):not([class*="dark"])[class*="_page_sfs-settings"],
+body:not(.wp-dark-mode-active):not([class*="dark"]).file-submissions_page_sfs-settings,
+body:not(.wp-dark-mode-active):not([class*="dark"])[class*="_page_sfs-settings"],
+body:not(.wp-dark-mode-active):not([class*="dark"]).file-submissions_page_sfs-settings #wpwrap,
+body:not(.wp-dark-mode-active):not([class*="dark"])[class*="_page_sfs-settings"] #wpwrap,
+body:not(.wp-dark-mode-active):not([class*="dark"]).file-submissions_page_sfs-settings #wpcontent,
+body:not(.wp-dark-mode-active):not([class*="dark"])[class*="_page_sfs-settings"] #wpcontent,
+body:not(.wp-dark-mode-active):not([class*="dark"]).file-submissions_page_sfs-settings #wpbody,
+body:not(.wp-dark-mode-active):not([class*="dark"])[class*="_page_sfs-settings"] #wpbody,
+body:not(.wp-dark-mode-active):not([class*="dark"]).file-submissions_page_sfs-settings #wpbody-content,
+body:not(.wp-dark-mode-active):not([class*="dark"])[class*="_page_sfs-settings"] #wpbody-content {
+    background: #f0f0f1 !important;
+}
+
+html:not(.wp-dark-mode-active):not([class*="dark"]) body.file-submissions_page_sfs-settings,
+html:not(.wp-dark-mode-active):not([class*="dark"]) body[class*="_page_sfs-settings"] {
+    background: #f0f0f1 !important;
+}
+
+/* Forza sfondo trasparente per tutta la pagina wrap */
+#wpbody-content .wrap {
+    background: transparent !important;
+}
+
+.wrap > h1,
+.wrap > h2 {
+    background: transparent !important;
+}
+
+.sfs-settings-wrapper .form-table {
+    background: transparent;
+}
+
+.sfs-settings-wrapper .form-table th,
+.sfs-settings-wrapper .form-table td {
+    background: transparent !important;
+}
+
+.sfs-settings-wrapper .form-table tr,
+.sfs-settings-wrapper .form-table tbody tr {
+    background: transparent !important;
+}
+
+/* Rimuovi alternanza colori righe */
+.sfs-settings-wrapper .form-table tbody tr:nth-child(odd) th,
+.sfs-settings-wrapper .form-table tbody tr:nth-child(odd) td {
+    background: transparent !important;
+}
+
+.sfs-settings-wrapper .form-table tbody tr:nth-child(even) th,
+.sfs-settings-wrapper .form-table tbody tr:nth-child(even) td {
+    background: transparent !important;
+}
+
+/* Forza trasparenza per wrapper impostazioni */
+.file-submissions_page_sfs-settings .wrap,
+[class*="_page_sfs-settings"] .wrap {
+    background: transparent !important;
+}
+
+.file-submissions_page_sfs-settings .sfs-settings-wrapper hr,
+[class*="_page_sfs-settings"] .sfs-settings-wrapper hr {
+    background: transparent !important;
+    border-color: var(--wp-dark-mode-border, #ddd);
+}
+
+/* Dark mode compatibility */
+body.wp-dark-mode-active .sfs-stat-box,
+body[class*="dark"] .sfs-stat-box {
+    background: var(--wp-dark-mode-bg, #1e1e1e);
+    border-color: var(--wp-dark-mode-border, #3a3a3a);
+}
+
+body.wp-dark-mode-active .sfs-stat-box h3,
+body[class*="dark"] .sfs-stat-box h3 {
+    color: var(--wp-dark-mode-text-secondary, #a0a0a0);
+}
+
+body.wp-dark-mode-active .sfs-stat-box .sfs-stat-number,
+body[class*="dark"] .sfs-stat-box .sfs-stat-number {
+    color: var(--wp-dark-mode-primary, #3db2ff);
+}
+
+body.wp-dark-mode-active .sfs-submission-details,
+body[class*="dark"] .sfs-submission-details {
+    background: var(--wp-dark-mode-bg-secondary, #252525);
+    border-color: var(--wp-dark-mode-border, #3a3a3a);
+}
+
+body.wp-dark-mode-active .sfs-details-table th,
+body[class*="dark"] .sfs-details-table th {
+    color: var(--wp-dark-mode-text, #e0e0e0);
+}
+
+body.wp-dark-mode-active .sfs-details-table td,
+body[class*="dark"] .sfs-details-table td {
+    color: var(--wp-dark-mode-text-secondary, #a0a0a0);
+}
+
+body.wp-dark-mode-active .sfs-details-table tr,
+body[class*="dark"] .sfs-details-table tr {
+    border-bottom-color: var(--wp-dark-mode-border, #3a3a3a);
 }
 
 .sfs-settings-wrapper h2 {
