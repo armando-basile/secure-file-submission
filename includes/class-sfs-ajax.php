@@ -52,6 +52,11 @@ class SFS_AJAX {
             wp_mkdir_p($chunk_dir);
         }
         
+        // Save original filename on first chunk
+        if ($chunk_index === 0) {
+            file_put_contents($chunk_dir . '/original_filename.txt', $file_name);
+        }
+        
         $chunk_file = $chunk_dir . '/chunk_' . $chunk_index;
         
         if (!isset($_FILES['chunk'])) {
@@ -80,21 +85,40 @@ class SFS_AJAX {
         
         // Verify reCAPTCHA if configured
         $recaptcha_secret = get_option('sfs_recaptcha_secret_key');
-        if (!empty($recaptcha_secret)) {
-            if (!isset($_POST['recaptcha_token'])) {
-                wp_send_json_error(array('message' => __('Verifica reCAPTCHA mancante.', 'secure-file-submission')));
+        $recaptcha_site_key = get_option('sfs_recaptcha_site_key');
+        
+        if (!empty($recaptcha_secret) && !empty($recaptcha_site_key)) {
+            if (!isset($_POST['recaptcha_token']) || empty($_POST['recaptcha_token'])) {
+                // Log for debugging
+                error_log('SFS reCAPTCHA: Token mancante. Site Key configurata: ' . substr($recaptcha_site_key, 0, 20) . '...');
+                wp_send_json_error(array(
+                    'message' => __('Verifica reCAPTCHA mancante. Assicurati che JavaScript sia abilitato e che il sito possa caricare script esterni (disabilita eventuali ad-blocker).', 'secure-file-submission')
+                ));
             }
+            
+            // Log token received
+            error_log('SFS reCAPTCHA: Token ricevuto: ' . substr($_POST['recaptcha_token'], 0, 50) . '...');
             
             $recaptcha_response = $this->verify_recaptcha($_POST['recaptcha_token'], $recaptcha_secret);
             
+            // Log response
+            error_log('SFS reCAPTCHA: Risposta Google: ' . json_encode($recaptcha_response));
+            
             if (!$recaptcha_response['success']) {
-                wp_send_json_error(array('message' => __('Verifica reCAPTCHA fallita. Sei un robot?', 'secure-file-submission')));
+                $error_msg = __('Verifica reCAPTCHA fallita.', 'secure-file-submission');
+                if (isset($recaptcha_response['error-codes'])) {
+                    $error_msg .= ' ' . __('Codici errore:', 'secure-file-submission') . ' ' . implode(', ', $recaptcha_response['error-codes']);
+                }
+                wp_send_json_error(array('message' => $error_msg));
             }
             
             // Check reCAPTCHA score (v3)
             if (isset($recaptcha_response['score']) && $recaptcha_response['score'] < 0.5) {
+                error_log('SFS reCAPTCHA: Score troppo basso: ' . $recaptcha_response['score']);
                 wp_send_json_error(array('message' => __('Score reCAPTCHA troppo basso. Contatta l\'amministratore se il problema persiste.', 'secure-file-submission')));
             }
+            
+            error_log('SFS reCAPTCHA: Verifica completata con successo. Score: ' . ($recaptcha_response['score'] ?? 'N/A'));
         }
         
         // Validate all required fields
@@ -338,16 +362,26 @@ class SFS_AJAX {
         if (!file_exists($chunk_dir)) {
             return array(
                 'success' => false,
-                'message' => __('File temporanei non trovati.', 'secure-file-submission')
+                'message' => __('File temporanei non trovati. Upload ID: ', 'secure-file-submission') . $upload_id
             );
         }
+        
+        // Get original filename
+        $original_filename_file = $chunk_dir . '/original_filename.txt';
+        if (!file_exists($original_filename_file)) {
+            return array(
+                'success' => false,
+                'message' => __('Nome file originale non trovato.', 'secure-file-submission')
+            );
+        }
+        $original_filename = file_get_contents($original_filename_file);
         
         // Get all chunks and sort them
         $chunks = glob($chunk_dir . '/chunk_*');
         if (empty($chunks)) {
             return array(
                 'success' => false,
-                'message' => __('Nessun chunk trovato.', 'secure-file-submission')
+                'message' => __('Nessun chunk trovato nella directory.', 'secure-file-submission')
             );
         }
         
@@ -383,17 +417,21 @@ class SFS_AJAX {
         
         fclose($final_handle);
         
+        // Delete original filename file
+        unlink($original_filename_file);
+        
         // Remove chunk directory
         rmdir($chunk_dir);
         
         // Create a fake $_FILES array for the file handler
         $file_size = filesize($temp_file);
         $fake_file = array(
-            'name' => basename($temp_file),
+            'name' => $original_filename,
             'type' => 'application/zip',
             'tmp_name' => $temp_file,
             'error' => 0,
-            'size' => $file_size
+            'size' => $file_size,
+            'chunked' => true  // Flag to indicate this is a chunked upload
         );
         
         // Use existing file handler to process the reassembled file

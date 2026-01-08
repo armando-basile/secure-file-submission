@@ -41,6 +41,7 @@ class SFS_Frontend {
                     'fileTooLarge' => sprintf(__('Il file supera la dimensione massima di %s MB.', 'secure-file-submission'), round(get_option('sfs_max_file_size', 524288000) / 1024 / 1024)),
                     'invalidFileType' => __('Sono ammessi solo file ZIP.', 'secure-file-submission'),
                     'errorSending' => __('Errore durante l\'invio. Riprova più tardi.', 'secure-file-submission'),
+                    'finalizing' => __('Finalizzazione in corso, attendere...', 'secure-file-submission'),
                 )
             ));
         }

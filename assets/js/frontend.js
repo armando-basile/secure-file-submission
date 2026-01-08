@@ -89,14 +89,20 @@
             formData.append('sfs_nonce', sfsData.nonce);
             
             // Add reCAPTCHA token if configured
-            if (sfsData.recaptchaSiteKey) {
+            if (sfsData.recaptchaSiteKey && typeof grecaptcha !== 'undefined') {
                 grecaptcha.ready(function() {
                     grecaptcha.execute(sfsData.recaptchaSiteKey, {action: 'submit'}).then(function(token) {
                         formData.append('recaptcha_token', token);
                         uploadChunked(file, formData);
+                    }).catch(function(error) {
+                        console.error('reCAPTCHA error:', error);
+                        showMessage('error', 'Errore durante la verifica reCAPTCHA. Riprova.');
+                        submitBtn.prop('disabled', false).removeClass('loading');
+                        progressDiv.hide();
                     });
                 });
             } else {
+                // Skip reCAPTCHA if not configured or not loaded
                 uploadChunked(file, formData);
             }
         });
@@ -109,7 +115,9 @@
             
             function uploadNextChunk() {
                 if (currentChunk >= totalChunks) {
-                    // All chunks uploaded, finalize
+                    // All chunks uploaded, show finalizing message
+                    progressBar.css('width', '100%');
+                    progressText.addClass('finalizing').html('<span class="sfs-spinner"></span> ' + sfsData.messages.finalizing);
                     finalizeUpload(uploadId, formData);
                     return;
                 }
@@ -159,10 +167,11 @@
         function finalizeUpload(uploadId, formData) {
             formData.append('upload_id', uploadId);
             
-            submitForm(formData);
+            // Pass true to skip progress updates (keep finalizing message visible)
+            submitForm(formData, true);
         }
         
-        function submitForm(formData) {
+        function submitForm(formData, skipProgressUpdate) {
             $.ajax({
                 url: sfsData.ajaxurl,
                 type: 'POST',
@@ -171,13 +180,15 @@
                 contentType: false,
                 xhr: function() {
                     var xhr = new window.XMLHttpRequest();
-                    // Upload progress
-                    xhr.upload.addEventListener("progress", function(evt) {
-                        if (evt.lengthComputable) {
-                            var percentComplete = Math.round((evt.loaded / evt.total) * 100);
-                            updateProgress(percentComplete);
-                        }
-                    }, false);
+                    // Upload progress (only if not finalizing chunks)
+                    if (!skipProgressUpdate) {
+                        xhr.upload.addEventListener("progress", function(evt) {
+                            if (evt.lengthComputable) {
+                                var percentComplete = Math.round((evt.loaded / evt.total) * 100);
+                                updateProgress(percentComplete);
+                            }
+                        }, false);
+                    }
                     return xhr;
                 },
                 success: function(response) {

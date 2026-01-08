@@ -94,11 +94,20 @@ class SFS_File_Handler {
      * @return array Array with 'success' boolean, 'file_path', 'file_name', and 'message'
      */
     public function handle_upload($file, $codice_fiscale) {
-        // Validate file was uploaded
-        if (!isset($file['tmp_name']) || !is_uploaded_file($file['tmp_name'])) {
+        // Validate file exists
+        if (!isset($file['tmp_name']) || !file_exists($file['tmp_name'])) {
             return array(
                 'success' => false,
                 'message' => 'Nessun file caricato o errore durante l\'upload.'
+            );
+        }
+        
+        // For chunked uploads, file is already on disk, so skip is_uploaded_file check
+        // For regular uploads, verify it was uploaded via HTTP POST
+        if (!isset($file['chunked']) && !is_uploaded_file($file['tmp_name'])) {
+            return array(
+                'success' => false,
+                'message' => 'File non valido.'
             );
         }
         
@@ -165,12 +174,23 @@ class SFS_File_Handler {
         // Full path
         $destination = $this->upload_dir . '/' . $new_filename;
         
-        // Move uploaded file
-        if (!move_uploaded_file($file['tmp_name'], $destination)) {
-            return array(
-                'success' => false,
-                'message' => 'Errore durante il salvataggio del file sul server.'
-            );
+        // Move file to destination
+        // For chunked uploads, file is already on disk, use rename()
+        // For regular uploads, use move_uploaded_file()
+        if (isset($file['chunked']) && $file['chunked']) {
+            if (!rename($file['tmp_name'], $destination)) {
+                return array(
+                    'success' => false,
+                    'message' => 'Errore durante il salvataggio del file sul server.'
+                );
+            }
+        } else {
+            if (!move_uploaded_file($file['tmp_name'], $destination)) {
+                return array(
+                    'success' => false,
+                    'message' => 'Errore durante il salvataggio del file sul server.'
+                );
+            }
         }
         
         // Set proper permissions

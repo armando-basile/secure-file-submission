@@ -133,6 +133,10 @@ msgstr "Only ZIP files are allowed."
 msgid "Errore durante l'invio. Riprova più tardi."
 msgstr "Error sending. Please try again later."
 
+#: includes/class-sfs-frontend.php:44
+msgid "Finalizzazione in corso, attendere..."
+msgstr "Finalizing, please wait..."
+
 #: includes/class-sfs-admin.php:78
 msgid "Sei sicuro di voler eliminare questa submission? Questa azione è irreversibile."
 msgstr "Are you sure you want to delete this submission? This action is irreversible."
