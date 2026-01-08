@@ -74,8 +74,17 @@
             progressDiv.show();
             updateProgress(0);
             
-            // Prepare form data
+            // Get file for chunked upload
+            var file = fileInput[0].files[0];
+            if (!file) {
+                showMessage('error', 'Nessun file selezionato.');
+                submitBtn.prop('disabled', false).removeClass('loading');
+                return;
+            }
+            
+            // Prepare form data WITHOUT file (we'll send it separately)
             var formData = new FormData(this);
+            formData.delete('file'); // Remove file from form data
             formData.append('action', 'sfs_submit');
             formData.append('sfs_nonce', sfsData.nonce);
             
@@ -84,13 +93,74 @@
                 grecaptcha.ready(function() {
                     grecaptcha.execute(sfsData.recaptchaSiteKey, {action: 'submit'}).then(function(token) {
                         formData.append('recaptcha_token', token);
-                        submitForm(formData);
+                        uploadChunked(file, formData);
                     });
                 });
             } else {
-                submitForm(formData);
+                uploadChunked(file, formData);
             }
         });
+        
+        function uploadChunked(file, formData) {
+            var chunkSize = 5 * 1024 * 1024; // 5MB chunks
+            var totalChunks = Math.ceil(file.size / chunkSize);
+            var currentChunk = 0;
+            var uploadId = Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            
+            function uploadNextChunk() {
+                if (currentChunk >= totalChunks) {
+                    // All chunks uploaded, finalize
+                    finalizeUpload(uploadId, formData);
+                    return;
+                }
+                
+                var start = currentChunk * chunkSize;
+                var end = Math.min(start + chunkSize, file.size);
+                var chunk = file.slice(start, end);
+                
+                var chunkFormData = new FormData();
+                chunkFormData.append('action', 'sfs_upload_chunk');
+                chunkFormData.append('chunk', chunk);
+                chunkFormData.append('chunk_index', currentChunk);
+                chunkFormData.append('total_chunks', totalChunks);
+                chunkFormData.append('upload_id', uploadId);
+                chunkFormData.append('file_name', file.name);
+                chunkFormData.append('sfs_nonce', sfsData.nonce);
+                
+                $.ajax({
+                    url: sfsData.ajaxurl,
+                    type: 'POST',
+                    data: chunkFormData,
+                    processData: false,
+                    contentType: false,
+                    success: function(response) {
+                        if (response.success) {
+                            currentChunk++;
+                            var progress = Math.round((currentChunk / totalChunks) * 100);
+                            updateProgress(progress);
+                            uploadNextChunk();
+                        } else {
+                            showMessage('error', response.data.message);
+                            progressDiv.hide();
+                            submitBtn.prop('disabled', false).removeClass('loading');
+                        }
+                    },
+                    error: function() {
+                        showMessage('error', 'Errore durante l\'upload del file.');
+                        progressDiv.hide();
+                        submitBtn.prop('disabled', false).removeClass('loading');
+                    }
+                });
+            }
+            
+            uploadNextChunk();
+        }
+        
+        function finalizeUpload(uploadId, formData) {
+            formData.append('upload_id', uploadId);
+            
+            submitForm(formData);
+        }
         
         function submitForm(formData) {
             $.ajax({
