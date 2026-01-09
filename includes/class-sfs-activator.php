@@ -13,9 +13,24 @@ class SFS_Activator {
         self::create_tables();
         self::create_upload_directory();
         self::set_default_options();
+        self::add_custom_role();
         
         // Flush rewrite rules
         flush_rewrite_rules();
+    }
+    
+    /**
+     * Add custom role for file submission management
+     */
+    private static function add_custom_role() {
+        add_role(
+            'file_submission_manager',
+            __('File Submission Manager', 'secure-file-submission'),
+            array(
+                'read' => true,
+                'manage_file_submissions' => true,
+            )
+        );
     }
     
     private static function create_tables() {

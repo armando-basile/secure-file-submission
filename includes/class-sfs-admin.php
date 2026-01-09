@@ -59,7 +59,7 @@ class SFS_Admin {
             'file-submissions',  // Parent slug
             __('Settings', 'secure-file-submission'),
             __('Settings', 'secure-file-submission'),
-            'manage_file_submissions',
+            'manage_options',    // Only administrators
             'sfs-settings',
             array($this, 'render_settings_page')
         );
@@ -132,8 +132,8 @@ class SFS_Admin {
      * Render settings page
      */
     public function render_settings_page() {
-        // Check user capabilities
-        if (!current_user_can('manage_file_submissions')) {
+        // Check user capabilities - Only administrators
+        if (!current_user_can('manage_options')) {
             wp_die(__('Non hai i permessi per accedere a questa pagina.', 'secure-file-submission'));
         }
         

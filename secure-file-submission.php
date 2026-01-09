@@ -57,22 +57,3 @@ function sfs_init() {
     new SFS_AJAX();
 }
 add_action('plugins_loaded', 'sfs_init');
-
-// Add custom role on plugin activation
-function sfs_add_custom_role() {
-    add_role(
-        'file_submission_manager',
-        __('File Submission Manager', 'secure-file-submission'),
-        array(
-            'read' => true,
-            'manage_file_submissions' => true,
-        )
-    );
-}
-register_activation_hook(__FILE__, 'sfs_add_custom_role');
-
-// Remove custom role on plugin deactivation
-function sfs_remove_custom_role() {
-    remove_role('file_submission_manager');
-}
-register_deactivation_hook(__FILE__, 'sfs_remove_custom_role');
